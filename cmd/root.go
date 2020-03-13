@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/allaryin/rimworld-modlist-sync/pkg/rimworld/xml"
 	"os"
 	"path/filepath"
 	"runtime"
 
-	"github.com/allaryin/rimworld-modlist-sync/pkg/rimworld"
 	"github.com/allaryin/rimworld-modlist-sync/pkg/util"
 	"github.com/spf13/cobra"
 )
@@ -24,7 +24,7 @@ var (
 	configFile string
 
 	// the actual ModsConfig.xml data itself
-	modsConfig *rimworld.ModsConfigData
+	modsConfig *xml.ModsConfigData
 )
 
 func init() {
@@ -65,7 +65,7 @@ func preRun(cmd *cobra.Command, args []string) (err error) {
 	}
 
 	// and verify that a config file exists and is writable
-	configFile = filepath.Join(configDir, rimworld.ModsConfigFilename)
+	configFile = filepath.Join(configDir, xml.ModsConfigFilename)
 	if !util.FileExists(configFile) {
 		// we don't have a config - they've probably never run a compatible build of rimworld with this config dir
 		fmt.Printf("!! Could not find mods config, have you launched RimWorld?\n")
@@ -87,7 +87,7 @@ func preRun(cmd *cobra.Command, args []string) (err error) {
 	}
 
 	// and now that everything else is known okay - let's read in the current config file
-	modsConfig, err = rimworld.LoadModsConfig(configFile)
+	modsConfig, err = xml.LoadModsConfig(configFile)
 	if err == nil {
 		fmt.Printf("Loaded config xml...\n")
 	}
@@ -96,8 +96,7 @@ func preRun(cmd *cobra.Command, args []string) (err error) {
 }
 
 func runRoot(cmd *cobra.Command, args []string) (err error) {
-	fmt.Printf("Running...\n")
-	return
+	return cmd.Help()
 }
 
 func Execute() {
@@ -109,6 +108,8 @@ func Execute() {
 	}
 
 	rootCmd.PersistentFlags().StringVar(&rwDir, "dir", defaultRwDir, "data directory")
+
+	rootCmd.AddCommand(savesCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

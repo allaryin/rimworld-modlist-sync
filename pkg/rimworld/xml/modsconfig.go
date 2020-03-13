@@ -1,4 +1,4 @@
-package rimworld
+package xml
 
 import (
 	"encoding/xml"

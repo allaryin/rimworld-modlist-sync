@@ -1,11 +1,6 @@
-package rimworld
+package xml
 
 import "encoding/xml"
-
-const (
-	// while 100% xml, saves are stored with a "rimworld save" file extension
-	SavegameExtension = ".rws"
-)
 
 type Savegame struct {
 	XMLName xml.Name `xml:"savegame"`
