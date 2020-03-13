@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/allaryin/rimworld-modlist-sync/pkg/rimworld"
 	"github.com/spf13/cobra"
-	"github.com/lithammer/fuzzysearch/fuzzy"
 )
 
 var savesCmd = &cobra.Command{
@@ -34,7 +34,7 @@ func runSaves(cmd *cobra.Command, args []string) (err error) {
 			}
 		} else {
 			// get fuzzy
-			matches := fuzzy.FindNormalizedFold(savesMatch, files)
+			matches := saves.Find(savesMatch)
 			fmt.Printf("Found %d that matched %q...\n", len(matches), savesMatch)
 			for _, save := range matches {
 				fmt.Printf("> %s\n", save)

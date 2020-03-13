@@ -2,6 +2,7 @@ package rimworld
 
 import (
 	"fmt"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 	"io/ioutil"
 	"path/filepath"
 	"sort"
@@ -41,4 +42,9 @@ func ScanSaves(saveDir string) (s *Saves, err error) {
 
 func (s *Saves) ListAll() []string {
 	return s.files
+}
+
+func (s *Saves) Find(name string) []string {
+	matches := fuzzy.FindNormalizedFold(name, s.files)
+	return matches
 }
