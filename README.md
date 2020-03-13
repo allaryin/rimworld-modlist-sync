@@ -12,7 +12,7 @@ while RimWorld is currently running** ;)
 * [x] Find RimWorld data directory
 * [x] Read ModConfig.xml
 * [ ] ... and Savegame.rws files
-* [ ] Browse save files, possibly allowing fuzzy name matching
-* [x] Validate save vs config versions
+* [x] Browse save files, possibly allowing fuzzy name matching
+* [ ] Validate save vs config versions
 * [ ] Copy modlist from a save into the config, saving a backup first
 * [ ] Restore ModConfig.xml from a backup
